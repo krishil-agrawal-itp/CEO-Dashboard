@@ -22,17 +22,18 @@
 :root {
   color-scheme: light;
 
-  /* ---------- Brand colors (Intuitive Design System, colors_and_type.css) ---------- */
+  /* ---------- Brand colors (Intuitive Design System) ---------- */
   --black: #000000;
   --white: #ffffff;
-  --blue: #003ae3; /* the ONE highlight color — CTAs, active states, positive signal */
+  --blue: #003ae3;
   --deep-blue: #002099;
   --navy: #00104d;
-  --red: #cb1c2a; /* dark backgrounds ONLY — never on white */
+  --red: #cb1c2a;
 
-  --bg-light: #f4f4f4;
+  --bg-light: #f0f2f6;
   --light-gray: #dddddd;
   --border-gray: #d7dbe0;
+  --border-soft: #e6e9ef;
   --silver-grey: #808080;
   --ash-grey: #777777;
   --grey: #444445;
@@ -41,27 +42,44 @@
   /* ---------- Semantic (light theme) ---------- */
   --page: var(--bg-light);
   --surface: var(--white);
-  --surface-sunken: var(--bg-light);
+  --surface-sunken: #f5f6f9;
+  --surface-elevated: #ffffff;
   --border: var(--border-gray);
+  --border-subtle: var(--border-soft);
   --ink-primary: var(--black);
   --ink-secondary: var(--grey);
   --ink-muted: var(--silver-grey);
   --brand: var(--blue);
   --brand-strong: var(--deep-blue);
+  --brand-soft: rgba(0, 58, 227, 0.08);
+  --brand-softer: rgba(0, 58, 227, 0.045);
+  --brand-glow: rgba(0, 58, 227, 0.18);
 
-  /* ---------- Radii (brand: crisp surfaces, full-pill CTAs/badges) ---------- */
-  --r-sm: 4px;
-  --r-md: 8px;
-  --r-lg: 16px;
+  /* Attention / high-risk — soft alert wash, never solid black */
+  --risk: var(--red);
+  --risk-strong: #a01520;
+  --risk-soft: rgba(203, 28, 42, 0.1);
+  --risk-border: rgba(203, 28, 42, 0.22);
+
+  /* ---------- Radii ---------- */
+  --r-sm: 6px;
+  --r-md: 10px;
+  --r-lg: 18px;
+  --r-xl: 24px;
   --r-pill: 999px;
 
-  /* ---------- Shadows (brand: subtle & sparse, never glossy) ---------- */
-  --shadow-sm: 0 1px 2px rgba(14, 17, 22, 0.06);
-  --shadow-md: 0 8px 24px rgba(14, 17, 22, 0.08);
-  --shadow-lg: 0 24px 64px rgba(14, 17, 22, 0.12);
+  /* ---------- Shadows (layered, executive feel) ---------- */
+  --shadow-xs: 0 1px 2px rgba(14, 17, 22, 0.04);
+  --shadow-sm: 0 1px 2px rgba(14, 17, 22, 0.04), 0 4px 12px rgba(14, 17, 22, 0.04);
+  --shadow-md: 0 4px 8px rgba(14, 17, 22, 0.04), 0 16px 40px rgba(14, 17, 22, 0.08);
+  --shadow-lg: 0 8px 16px rgba(14, 17, 22, 0.05), 0 32px 72px rgba(14, 17, 22, 0.12);
+  --shadow-brand: 0 8px 24px rgba(0, 58, 227, 0.28);
+  --shadow-inset: inset 0 1px 0 rgba(255, 255, 255, 0.7);
 
   --ease: cubic-bezier(0.2, 0.6, 0.2, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --dur: 220ms;
+  --dur-slow: 380ms;
 }
 
 @theme inline {
@@ -82,15 +100,19 @@ body {
   color: var(--ink-primary);
   font-family: "Satoshi", system-ui, -apple-system, "Segoe UI", sans-serif;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: rgba(0, 58, 227, 0.16);
+  color: var(--ink-primary);
 }
 
 .tabular-nums {
   font-variant-numeric: tabular-nums;
 }
 
-/* Scrollable areas keep working, the scrollbar itself just doesn't render —
-   used on the main content pane, sidebar nav, and table overflow wrappers. */
 .no-scrollbar {
   scrollbar-width: none;
   -ms-overflow-style: none;
@@ -99,13 +121,19 @@ body {
   display: none;
 }
 
-/* Calm, functional motion only (brand: ~200-240ms, no bounce). Used for
-   section switches and for bars/heatmap cells animating in on mount —
-   never decorative, never looping. */
+/* Ambient page atmosphere — soft navy wash + faint brand bloom */
+.page-atmosphere {
+  background:
+    radial-gradient(ellipse 80% 55% at 12% -10%, rgba(0, 58, 227, 0.09), transparent 55%),
+    radial-gradient(ellipse 60% 45% at 92% 8%, rgba(0, 16, 77, 0.05), transparent 50%),
+    radial-gradient(ellipse 50% 40% at 70% 100%, rgba(0, 58, 227, 0.04), transparent 55%),
+    linear-gradient(180deg, #eef1f6 0%, #f0f2f6 40%, #eceff4 100%);
+}
+
 @keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(6px);
+    transform: translateY(10px);
   }
   to {
     opacity: 1;
@@ -128,24 +156,77 @@ body {
     opacity: 1;
   }
 }
+@keyframes softPulse {
+  0%,
+  100% {
+    opacity: 1;
+    box-shadow: 0 0 0 0 rgba(0, 58, 227, 0.45);
+  }
+  50% {
+    opacity: 0.85;
+    box-shadow: 0 0 0 5px rgba(0, 58, 227, 0);
+  }
+}
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
 
 .section-enter {
-  animation: fadeInUp 320ms var(--ease) both;
+  animation: fadeInUp 380ms var(--ease-out) both;
 }
 .bar-grow {
   transform-origin: left;
-  animation: growX 640ms var(--ease) both;
+  animation: growX 720ms var(--ease-out) both;
 }
 .cell-fade {
   animation: fadeIn 420ms var(--ease) both;
 }
 
-/* Card hover lift — subtle, brand-compliant elevation change, not glow. */
+.live-dot {
+  animation: softPulse 2.4s var(--ease) infinite;
+}
+
+/* Card hover lift — refined elevation, brand-compliant */
 .hover-lift {
-  transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease), border-color var(--dur) var(--ease);
+  transition:
+    transform var(--dur) var(--ease),
+    box-shadow var(--dur) var(--ease),
+    border-color var(--dur) var(--ease);
 }
 .hover-lift:hover {
-  transform: translateY(-2px);
+  transform: translateY(-3px);
   box-shadow: var(--shadow-md);
-  border-color: #c4cad4;
+  border-color: #c5ccd8;
+}
+
+/* Soft glass panels */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.78);
+  backdrop-filter: blur(16px) saturate(1.2);
+  -webkit-backdrop-filter: blur(16px) saturate(1.2);
+}
+
+/* Focus ring for interactive chrome */
+.focus-ring:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 2px;
+}
+
+/* Accent hairline under card titles */
+.card-title-accent {
+  position: relative;
+}
+.card-title-accent::after {
+  content: "";
+  display: block;
+  width: 28px;
+  height: 3px;
+  margin-top: 10px;
+  border-radius: var(--r-pill);
+  background: linear-gradient(90deg, var(--brand), rgba(0, 58, 227, 0.15));
 }

@@ -2,9 +2,27 @@ import { SectionTiles } from "@/lib/types";
 import { LayersIcon, TrendingUpIcon, AlertIcon } from "../icons";
 
 const TILE_TONE = {
-  total: { bg: "var(--surface-sunken)", fg: "var(--ink-secondary)", icon: LayersIcon },
-  ongoing: { bg: "rgba(0,58,227,0.08)", fg: "var(--brand)", icon: TrendingUpIcon },
-  attention: { bg: "#101010", fg: "#ffffff", icon: AlertIcon },
+  total: {
+    bg: "var(--surface-sunken)",
+    fg: "var(--ink-secondary)",
+    icon: LayersIcon,
+    accent: "transparent",
+    ring: "var(--border-subtle)",
+  },
+  ongoing: {
+    bg: "rgba(0,58,227,0.1)",
+    fg: "var(--brand)",
+    icon: TrendingUpIcon,
+    accent: "linear-gradient(90deg, var(--brand), rgba(0,58,227,0.35))",
+    ring: "rgba(0,58,227,0.18)",
+  },
+  attention: {
+    bg: "var(--risk-soft)",
+    fg: "var(--risk)",
+    icon: AlertIcon,
+    accent: "linear-gradient(90deg, var(--risk), rgba(203,28,42,0.35))",
+    ring: "var(--risk-border)",
+  },
 } as const;
 
 function Tile({
@@ -26,31 +44,52 @@ function Tile({
   const Icon = t.icon;
   return (
     <div
-      className="hover-lift flex flex-col gap-2.5 rounded-[var(--r-lg)] bg-[var(--surface)] p-5"
-      style={{ border: "1px solid var(--border)", boxShadow: "var(--shadow-sm)" }}
+      className="hover-lift relative flex flex-col gap-3 overflow-hidden rounded-[var(--r-lg)] bg-[var(--surface)] p-5 lg:p-6"
+      style={{ border: `1px solid ${t.ring}`, boxShadow: "var(--shadow-sm)" }}
     >
-      <div className="flex items-center gap-2.5">
+      {t.accent !== "transparent" && (
         <span
-          className="flex h-9 w-9 shrink-0 items-center justify-center rounded-[var(--r-md)]"
-          style={{ background: t.bg, color: t.fg }}
-        >
-          <Icon className="h-5 w-5" strokeWidth={2} />
-        </span>
-        <p className="text-[12px] font-bold uppercase tracking-[0.08em] text-[var(--ink-muted)]">{label}</p>
+          className="absolute inset-x-0 top-0 h-[3px]"
+          style={{ background: t.accent }}
+          aria-hidden
+        />
+      )}
+      <div className="flex items-center justify-between gap-2">
+        <div className="flex items-center gap-2.5">
+          <span
+            className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[var(--r-md)]"
+            style={{ background: t.bg, color: t.fg }}
+          >
+            <Icon className="h-5 w-5" strokeWidth={2} />
+          </span>
+          <p className="text-[11.5px] font-bold uppercase tracking-[0.1em] text-[var(--ink-muted)]">
+            {label}
+          </p>
+        </div>
       </div>
-      <p className="tabular-nums text-[32px] font-bold leading-none tracking-tight text-[var(--ink-primary)]">
-        {count} <span className="text-[15px] font-semibold text-[var(--ink-secondary)]">{unit}</span>
+      <p className="tabular-nums text-[34px] font-bold leading-none tracking-tight text-[var(--ink-primary)] lg:text-[36px]">
+        {count}{" "}
+        <span className="text-[15px] font-semibold text-[var(--ink-secondary)]">{unit}</span>
       </p>
-      <p className="text-[17px] font-bold text-[var(--ink-primary)]">{value}</p>
-      <p className="text-[13px] font-medium text-[var(--ink-muted)]">{sub}</p>
+      <div>
+        <p className="text-[16px] font-bold text-[var(--ink-primary)] lg:text-[17px]">{value}</p>
+        <p className="mt-1 text-[13px] font-medium leading-snug text-[var(--ink-muted)]">{sub}</p>
+      </div>
     </div>
   );
 }
 
 export function Tile3({ tiles }: { tiles: SectionTiles }) {
   return (
-    <div className="grid shrink-0 grid-cols-3 gap-4">
-      <Tile tone="total" label="Total" count={tiles.totalCount} unit={tiles.totalUnit} value={tiles.totalValue} sub={tiles.totalSub} />
+    <div className="grid shrink-0 grid-cols-1 gap-3 sm:grid-cols-3 sm:gap-4">
+      <Tile
+        tone="total"
+        label="Total"
+        count={tiles.totalCount}
+        unit={tiles.totalUnit}
+        value={tiles.totalValue}
+        sub={tiles.totalSub}
+      />
       <Tile
         tone="ongoing"
         label="Ongoing"

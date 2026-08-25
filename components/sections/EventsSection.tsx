@@ -7,10 +7,10 @@ import { StatBlockView } from "../ui/StatBlockView";
 
 export function EventsSection({ data }: { data: EventsSectionData }) {
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-4 lg:gap-5">
       <Tile3 tiles={data.tiles} />
 
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
         <Card title="Budget vs Actual" subtitle={`All 22 events, by category. Planned ${data.budgetPlanned} · spent to date ${data.budgetSpent}.`}>
           <SequentialBars items={data.budgetByCategory} />
         </Card>

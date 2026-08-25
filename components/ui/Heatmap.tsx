@@ -18,7 +18,7 @@ export function Heatmap({ columns, rows }: { columns: string[]; rows: HeatmapRow
   return (
     <div>
       <div
-        className="grid gap-1 text-[11px] font-bold uppercase tracking-[0.04em] text-[var(--ink-muted)]"
+        className="grid gap-1.5 text-[11px] font-bold uppercase tracking-[0.06em] text-[var(--ink-muted)]"
         style={{ gridTemplateColumns: `140px repeat(${columns.length}, 1fr)` }}
       >
         <div />
@@ -28,19 +28,23 @@ export function Heatmap({ columns, rows }: { columns: string[]; rows: HeatmapRow
           </div>
         ))}
       </div>
-      <div className="flex flex-col gap-1">
+      <div className="flex flex-col gap-1.5">
         {rows.map((row, ri) => (
           <div
             key={row.label}
-            className="grid items-center gap-1"
+            className="grid items-center gap-1.5"
             style={{ gridTemplateColumns: `140px repeat(${row.values.length}, 1fr)` }}
           >
             <div className="pr-2 text-[13px] font-semibold text-[var(--ink-secondary)]">{row.label}</div>
             {row.values.map((v, ci) => (
               <div
                 key={ci}
-                className="cell-fade tabular-nums flex h-8 items-center justify-center rounded-[var(--r-sm)] text-[12px] font-bold transition-transform hover:scale-105"
-                style={{ background: stepFor(v), color: textFor(v), animationDelay: `${(ri * row.values.length + ci) * 18}ms` }}
+                className="cell-fade tabular-nums flex h-9 items-center justify-center rounded-[var(--r-sm)] text-[12px] font-bold transition-transform hover:z-10 hover:scale-110 hover:shadow-[var(--shadow-sm)]"
+                style={{
+                  background: stepFor(v),
+                  color: textFor(v),
+                  animationDelay: `${(ri * row.values.length + ci) * 18}ms`,
+                }}
               >
                 {v}
               </div>
@@ -48,10 +52,10 @@ export function Heatmap({ columns, rows }: { columns: string[]; rows: HeatmapRow
           </div>
         ))}
       </div>
-      <div className="mt-2.5 flex items-center gap-1.5 text-[11.5px] font-semibold text-[var(--ink-muted)]">
+      <div className="mt-3 flex items-center gap-1.5 text-[11.5px] font-semibold text-[var(--ink-muted)]">
         <span>Under-utilised</span>
         {STEPS.map((s) => (
-          <span key={s} className="h-2 w-4 rounded-[2px]" style={{ background: s }} />
+          <span key={s} className="h-2.5 w-4 rounded-[3px]" style={{ background: s }} />
         ))}
         <span>Over-allocated</span>
       </div>

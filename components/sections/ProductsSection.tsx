@@ -6,10 +6,10 @@ import { StatBlockView } from "../ui/StatBlockView";
 
 export function ProductsSection({ data }: { data: ProductsSectionData }) {
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-4 lg:gap-5">
       <Tile3 tiles={data.tiles} />
 
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
         <Card title="Reuse Across the Business" subtitle="How much of delivery and sales leans on packaged IP.">
           <div className="grid grid-cols-2 gap-3">
             <StatBlockView {...data.reuseStat} />
@@ -21,7 +21,7 @@ export function ProductsSection({ data }: { data: ProductsSectionData }) {
         </Card>
       </div>
 
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
         <Card title="At-Risk ARR" subtitle="Revenue that could disappear without action.">
           <DataTable columns={data.atRisk.columns} rows={data.atRisk.rows} />
         </Card>

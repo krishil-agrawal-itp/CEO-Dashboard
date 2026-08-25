@@ -8,14 +8,14 @@ import { MilestoneTimeline } from "../ui/MilestoneTimeline";
 
 export function DeliveriesSection({ data }: { data: DeliveriesSectionData }) {
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-4 lg:gap-5">
       <Tile3 tiles={data.tiles} />
 
       <Card title="Projects — Progress vs Budget Burn" subtitle="Burn ahead of progress is the tell. Showing 7 of 46.">
         <DataTable columns={data.projects.columns} rows={data.projects.rows} />
       </Card>
 
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
         <Card title="Delivery Capacity & Bench" subtitle="Utilisation % by practice, last 6 weeks.">
           <Heatmap columns={data.capacity.columns} rows={data.capacity.rows} />
         </Card>
@@ -24,7 +24,7 @@ export function DeliveriesSection({ data }: { data: DeliveriesSectionData }) {
         </Card>
       </div>
 
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
         <Card title="Margin per Project" subtitle="Contract value vs delivery cost, this engagement to date.">
           <DataTable columns={data.margin.columns} rows={data.margin.rows} />
         </Card>

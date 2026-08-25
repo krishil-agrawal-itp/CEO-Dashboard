@@ -7,21 +7,21 @@ import { StatBlockView } from "../ui/StatBlockView";
 
 export function CertificationSection({ data }: { data: CertificationSectionData }) {
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-4 lg:gap-5">
       <Tile3 tiles={data.tiles} />
 
       <Card
         title="Partner Competency Tiers"
         subtitle="The status our sales eligibility, co-sell funding and marketplace ranking depend on."
       >
-        <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
           {data.tiers.map((t) => (
             <TierCard key={t.vendor} {...t} />
           ))}
         </div>
       </Card>
 
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
         <Card title="Bench Readiness by Skill" subtitle="Certified headcount against what's currently being sold.">
           <DataTable columns={data.benchReadiness.columns} rows={data.benchReadiness.rows} />
         </Card>
@@ -30,7 +30,7 @@ export function CertificationSection({ data }: { data: CertificationSectionData 
         </Card>
       </div>
 
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
         <Card title="Certification Investment & ROI" subtitle="This fiscal year.">
           <div className="grid grid-cols-2 gap-3">
             <StatBlockView {...data.spendStat} />

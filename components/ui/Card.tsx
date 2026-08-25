@@ -15,25 +15,31 @@ export function Card({
 }) {
   return (
     <div
-      className={`hover-lift rounded-[var(--r-lg)] bg-[var(--surface)] p-5 ${className}`}
-      style={{ border: "1px solid var(--border)", boxShadow: "var(--shadow-sm)" }}
+      className={`hover-lift group/card rounded-[var(--r-lg)] bg-[var(--surface)] p-5 lg:p-6 ${className}`}
+      style={{ border: "1px solid var(--border-subtle)", boxShadow: "var(--shadow-sm)" }}
     >
       {(title || tag) && (
-        <div className="flex items-start justify-between">
+        <div className="flex items-start justify-between gap-3">
           {title && (
-            <div>
-              <h3 className="text-[18px] font-bold tracking-tight text-[var(--ink-primary)]">{title}</h3>
-              {subtitle && <p className="mt-1 text-[13.5px] font-medium text-[var(--ink-muted)]">{subtitle}</p>}
+            <div className="card-title-accent min-w-0">
+              <h3 className="text-[17px] font-bold tracking-tight text-[var(--ink-primary)] lg:text-[18px]">
+                {title}
+              </h3>
+              {subtitle && (
+                <p className="mt-1 text-[13px] font-medium leading-snug text-[var(--ink-muted)] lg:text-[13.5px]">
+                  {subtitle}
+                </p>
+              )}
             </div>
           )}
           {tag && (
-            <span className="rounded-[var(--r-pill)] border border-[var(--border)] px-2.5 py-1 text-[12.5px] font-bold text-[var(--ink-secondary)]">
+            <span className="shrink-0 rounded-[var(--r-pill)] border border-[var(--border)] bg-[var(--surface-sunken)] px-2.5 py-1 text-[11.5px] font-bold uppercase tracking-[0.06em] text-[var(--ink-secondary)]">
               {tag}
             </span>
           )}
         </div>
       )}
-      <div className={title || tag ? "mt-3.5" : ""}>{children}</div>
+      <div className={title || tag ? "mt-4" : ""}>{children}</div>
     </div>
   );
 }

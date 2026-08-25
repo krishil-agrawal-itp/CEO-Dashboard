@@ -9,10 +9,10 @@ import { StatBlockView } from "../ui/StatBlockView";
 
 export function SalesSection({ data }: { data: SalesSectionData }) {
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-4 lg:gap-5">
       <Tile3 tiles={data.tiles} />
 
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
         <Card title="Pipeline by Stage" subtitle="Open deals only — closed-won/lost excluded.">
           <SequentialBars items={data.funnel} />
         </Card>
@@ -26,7 +26,7 @@ export function SalesSection({ data }: { data: SalesSectionData }) {
         </Card>
       </div>
 
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
         <Card title="Deals Needing Your Attention" subtitle="Sorted by why it needs you, not by value.">
           <Feed items={data.attentionFeed} />
         </Card>
@@ -35,7 +35,7 @@ export function SalesSection({ data }: { data: SalesSectionData }) {
         </Card>
       </div>
 
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
         <Card title="Win / Loss Trend" subtitle="Deal count, last 6 months.">
           <StackedBar2 rows={data.winLoss} aLabel="Won" bLabel="Lost" />
         </Card>

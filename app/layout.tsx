@@ -3,7 +3,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Intuitive Command Center",
-  description: "Sales, orders and product performance at a glance.",
+  description: "Executive command center — sales, delivery, products, certifications, and events at a glance.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
