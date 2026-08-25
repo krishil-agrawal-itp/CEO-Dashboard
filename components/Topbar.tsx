@@ -21,7 +21,8 @@ export function Topbar({
   useEffect(() => {
     function tick() {
       setNow(
-        new Date().toLocaleString(undefined, {
+        new Date().toLocaleString("en-US", {
+          timeZone: "America/Chicago",
           weekday: "short",
           month: "short",
           day: "numeric",
@@ -54,7 +55,7 @@ export function Topbar({
       <div className="flex shrink-0 items-center gap-2.5">
         {now && (
           <p className="hidden text-right text-[12.5px] font-semibold text-[var(--ink-muted)] xl:block">
-            <span className="block text-[11px] font-bold uppercase tracking-[0.1em]">Local time</span>
+            <span className="block text-[11px] font-bold uppercase tracking-[0.1em]">Dallas</span>
             {now}
           </p>
         )}
