@@ -88,3 +88,64 @@ body {
 .tabular-nums {
   font-variant-numeric: tabular-nums;
 }
+
+/* Scrollable areas keep working, the scrollbar itself just doesn't render —
+   used on the main content pane, sidebar nav, and table overflow wrappers. */
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Calm, functional motion only (brand: ~200-240ms, no bounce). Used for
+   section switches and for bars/heatmap cells animating in on mount —
+   never decorative, never looping. */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes growX {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.section-enter {
+  animation: fadeInUp 320ms var(--ease) both;
+}
+.bar-grow {
+  transform-origin: left;
+  animation: growX 640ms var(--ease) both;
+}
+.cell-fade {
+  animation: fadeIn 420ms var(--ease) both;
+}
+
+/* Card hover lift — subtle, brand-compliant elevation change, not glow. */
+.hover-lift {
+  transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease), border-color var(--dur) var(--ease);
+}
+.hover-lift:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  border-color: #c4cad4;
+}
