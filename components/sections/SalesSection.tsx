@@ -13,44 +13,60 @@ export function SalesSection({ data }: { data: SalesSectionData }) {
       <Tile3 tiles={data.tiles} />
 
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
-        <Card title="Pipeline by Stage" subtitle="Open deals only — closed-won/lost excluded.">
-          <SequentialBars items={data.funnel} />
-        </Card>
-        <Card title="Forecast vs Target" subtitle="This quarter, USD.">
+        <Card
+          title="Commit vs Target"
+          subtitle="Your number for the quarter — Best Case is context, not the plan."
+          sources={["HubSpot"]}
+        >
           <div className="grid grid-cols-2 gap-3">
             <StatBlockView label="Target" value={data.forecast.target} />
             <StatBlockView label="Commit" value={data.forecast.commit} sub={data.forecast.commitSub} />
-            <StatBlockView label="Best Case" value={data.forecast.bestCase} />
-            <StatBlockView label="Pipeline Coverage" value={data.forecast.coverage} sub={data.forecast.coverageSub} />
+            <StatBlockView label="Gap to target" value={data.forecast.gap} sub={data.forecast.gapSub} />
+            <StatBlockView label="Coverage" value={data.forecast.coverage} sub={data.forecast.coverageSub} />
+          </div>
+          <p className="mt-3 text-[12.5px] font-medium text-[var(--ink-muted)]">
+            Best case {data.forecast.bestCase} — upside only, not accountable.
+          </p>
+        </Card>
+        <Card title="Bookings pulse" subtitle="Closed-won and stall pressure this quarter." sources={["HubSpot"]}>
+          <div className="grid grid-cols-2 gap-3">
+            {data.bookings.map((b) => (
+              <StatBlockView key={b.label} {...b} />
+            ))}
           </div>
         </Card>
       </div>
 
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
-        <Card title="Deals Needing Your Attention" subtitle="Sorted by why it needs you, not by value.">
-          <Feed items={data.attentionFeed} />
+        <Card title="Open pipeline by stage" subtitle="Closed-won excluded — pure open risk." sources={["HubSpot"]}>
+          <SequentialBars items={data.funnel} />
         </Card>
-        <Card title="Revenue Concentration" subtitle={data.concentrationSub}>
-          <SequentialBars items={data.concentration} />
+        <Card
+          title="Needs your decision"
+          subtitle="Stalled, pricing exceptions, or silent buyers — not a full CRM list."
+          sources={["HubSpot"]}
+        >
+          <Feed items={data.attentionFeed} />
         </Card>
       </div>
 
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
-        <Card title="Win / Loss Trend" subtitle="Deal count, last 6 months.">
-          <StackedBar2 rows={data.winLoss} aLabel="Won" bLabel="Lost" />
+        <Card title="Revenue concentration" subtitle={data.concentrationSub} sources={["HubSpot"]}>
+          <SequentialBars items={data.concentration} />
         </Card>
-        <Card title="Why We Lost" subtitle="Reason logged on closed-lost deals, last 6 months.">
-          <SequentialBars items={data.winLossReasons} />
+        <Card title="Renewals that can hurt" subtitle="≤60 days · risk or watch only — healthy renewals omitted." sources={["HubSpot"]}>
+          <DataTable columns={data.renewals.columns} rows={data.renewals.rows} />
         </Card>
       </div>
 
-      <Card title="Renewal Pipeline" subtitle="Existing accounts up for renewal in the next 120 days.">
-        <DataTable columns={data.renewals.columns} rows={data.renewals.rows} />
-      </Card>
-
-      <Card title="Deals" subtitle="Showing 8 of 128 — most recent and at-risk.">
-        <DataTable columns={data.deals.columns} rows={data.deals.rows} />
-      </Card>
+      <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+        <Card title="Win / Loss trend" subtitle="Deal count, last 6 months." sources={["HubSpot"]}>
+          <StackedBar2 rows={data.winLoss} aLabel="Won" bLabel="Lost" />
+        </Card>
+        <Card title="Why we lose" subtitle="Closed-lost primary reason — price still leads." sources={["HubSpot"]}>
+          <SequentialBars items={data.winLossReasons} />
+        </Card>
+      </div>
     </div>
   );
 }

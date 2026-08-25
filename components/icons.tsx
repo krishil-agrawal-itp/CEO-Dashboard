@@ -181,6 +181,15 @@ export function BoxIcon(props: IconProps) {
   );
 }
 
+export function BriefIcon(props: IconProps) {
+  return (
+    <svg {...base} {...props}>
+      <path d="M4 5.5h16a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-11a1 1 0 0 1 1-1z" />
+      <path d="M7 9.5h10M7 13h7M7 16.5h5" />
+    </svg>
+  );
+}
+
 export function SalesIcon(props: IconProps) {
   return (
     <svg {...base} {...props}>

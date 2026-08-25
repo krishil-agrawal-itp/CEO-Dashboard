@@ -1,15 +1,19 @@
 import { ReactNode } from "react";
+import { DataSource } from "@/lib/types";
+import { SourceRow } from "./SourceChip";
 
 export function Card({
   title,
   subtitle,
   tag,
+  sources,
   children,
   className = "",
 }: {
   title?: string;
   subtitle?: string;
   tag?: string;
+  sources?: DataSource[];
   children: ReactNode;
   className?: string;
 }) {
@@ -18,13 +22,16 @@ export function Card({
       className={`hover-lift group/card rounded-[var(--r-lg)] bg-[var(--surface)] p-5 lg:p-6 ${className}`}
       style={{ border: "1px solid var(--border-subtle)", boxShadow: "var(--shadow-sm)" }}
     >
-      {(title || tag) && (
+      {(title || tag || sources) && (
         <div className="flex items-start justify-between gap-3">
           {title && (
             <div className="card-title-accent min-w-0">
-              <h3 className="text-[17px] font-bold tracking-tight text-[var(--ink-primary)] lg:text-[18px]">
-                {title}
-              </h3>
+              <div className="flex flex-wrap items-center gap-2">
+                <h3 className="text-[17px] font-bold tracking-tight text-[var(--ink-primary)] lg:text-[18px]">
+                  {title}
+                </h3>
+                {sources && <SourceRow sources={sources} />}
+              </div>
               {subtitle && (
                 <p className="mt-1 text-[13px] font-medium leading-snug text-[var(--ink-muted)] lg:text-[13.5px]">
                   {subtitle}
@@ -39,7 +46,7 @@ export function Card({
           )}
         </div>
       )}
-      <div className={title || tag ? "mt-4" : ""}>{children}</div>
+      <div className={title || tag || sources ? "mt-4" : ""}>{children}</div>
     </div>
   );
 }

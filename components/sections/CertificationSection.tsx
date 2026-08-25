@@ -4,6 +4,7 @@ import { Card } from "../ui/Card";
 import { DataTable } from "../ui/DataTable";
 import { TierCard } from "../ui/TierCard";
 import { StatBlockView } from "../ui/StatBlockView";
+import { Feed } from "../ui/Feed";
 
 export function CertificationSection({ data }: { data: CertificationSectionData }) {
   return (
@@ -11,8 +12,9 @@ export function CertificationSection({ data }: { data: CertificationSectionData 
       <Tile3 tiles={data.tiles} />
 
       <Card
-        title="Partner Competency Tiers"
-        subtitle="The status our sales eligibility, co-sell funding and marketplace ranking depend on."
+        title="Partner competency tiers"
+        subtitle="Eligibility for co-sell funding, marketplace rank, and enterprise RFPs."
+        sources={["Beacon"]}
       >
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
           {data.tiers.map((t) => (
@@ -22,23 +24,31 @@ export function CertificationSection({ data }: { data: CertificationSectionData 
       </Card>
 
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
-        <Card title="Bench Readiness by Skill" subtitle="Certified headcount against what's currently being sold.">
-          <DataTable columns={data.benchReadiness.columns} rows={data.benchReadiness.rows} />
+        <Card
+          title="Tier threats"
+          subtitle="Cert expiries and gaps that can drop a partner tier — not the full cert inventory."
+          sources={["Beacon"]}
+        >
+          <Feed items={data.tierThreats} />
         </Card>
-        <Card title="Compliance & Mandatory Certifications" subtitle="Audit readiness, org-wide.">
-          <DataTable columns={data.compliance.columns} rows={data.compliance.rows} />
+        <Card
+          title="Bench gaps where we are selling"
+          subtitle="Only skills with a headcount shortfall against live pipeline demand."
+          sources={["Beacon", "HubSpot"]}
+        >
+          <DataTable columns={data.benchReadiness.columns} rows={data.benchReadiness.rows} />
         </Card>
       </div>
 
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
-        <Card title="Certification Investment & ROI" subtitle="This fiscal year.">
+        <Card title="Audit & compliance gates" subtitle="Controls that block deals if they slip." sources={["Beacon"]}>
+          <DataTable columns={data.compliance.columns} rows={data.compliance.rows} />
+        </Card>
+        <Card title="Certification ROI" subtitle="Spend versus deal value that required a cert." sources={["Beacon", "HubSpot"]}>
           <div className="grid grid-cols-2 gap-3">
             <StatBlockView {...data.spendStat} />
             <StatBlockView {...data.unlockedStat} />
           </div>
-        </Card>
-        <Card title="Certifications" subtitle="Showing 4 of 312 — expiring soonest first.">
-          <DataTable columns={data.certifications.columns} rows={data.certifications.rows} />
         </Card>
       </div>
     </div>

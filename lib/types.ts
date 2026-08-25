@@ -1,12 +1,11 @@
 /**
- * Data contracts for the CEO dashboard. Every widget renders strictly from
- * one of these shapes — nothing is read from ad-hoc props. To go live:
- * replace the mock data returned by `getDashboardData()` in `lib/data.ts`
- * with a real fetch/DB call that resolves to `DashboardData`. Nothing in
- * the components needs to change.
+ * CEO-private Command Center contracts.
+ * Sources: HubSpot (revenue), Kantata (delivery PSA), Beacon (internal projects).
+ * Every widget is scoped to decisions and risk — not operational CRM/PSA detail.
  */
 
 export type StatusTone = "positive" | "neutral" | "watch" | "critical";
+export type DataSource = "HubSpot" | "Kantata" | "Beacon";
 
 export interface StatusPillData {
   label: string;
@@ -46,6 +45,7 @@ export interface FeedItem {
   text: string;
   meta: string;
   action: string;
+  source?: DataSource;
 }
 
 export interface BarItem {
@@ -70,7 +70,7 @@ export interface HeatmapRow {
 export interface MilestoneItem {
   date: string;
   label: string;
-  position: number; // 0-100, position along the timeline
+  position: number;
 }
 
 export interface TierCardData {
@@ -87,32 +87,59 @@ export interface StatBlock {
   sub?: string;
 }
 
-/* ---------------- Sales ---------------- */
+export interface SystemStatus {
+  name: DataSource;
+  status: "live" | "delayed" | "offline";
+  detail: string;
+}
+
+/* ---------------- Morning Brief (CEO home) ---------------- */
+export interface BriefSection {
+  generatedAt: string;
+  headline: string;
+  paragraphs: string[];
+  decisions: FeedItem[];
+  overnight: FeedItem[];
+  pulse: StatBlock[];
+  systems: SystemStatus[];
+}
+
+/* ---------------- Sales — HubSpot ---------------- */
 export interface SalesSection {
   tiles: SectionTiles;
   funnel: BarItem[];
-  forecast: { target: string; commit: string; commitSub: string; bestCase: string; coverage: string; coverageSub: string };
+  forecast: {
+    target: string;
+    commit: string;
+    commitSub: string;
+    bestCase: string;
+    coverage: string;
+    coverageSub: string;
+    gap: string;
+    gapSub: string;
+  };
+  bookings: StatBlock[];
   attentionFeed: FeedItem[];
   concentration: BarItem[];
   concentrationSub: string;
   winLoss: StackedBarRow[];
   winLossReasons: BarItem[];
   renewals: { columns: TableColumn[]; rows: TableRow[] };
-  deals: { columns: TableColumn[]; rows: TableRow[] };
 }
 
-/* ---------------- Deliveries ---------------- */
+/* ---------------- Deliveries — Kantata + Beacon ---------------- */
 export interface DeliveriesSection {
   tiles: SectionTiles;
-  projects: { columns: TableColumn[]; rows: TableRow[] };
-  capacity: { columns: string[]; rows: HeatmapRow[] };
+  atRiskProjects: { columns: TableColumn[]; rows: TableRow[] };
+  silentProjects: FeedItem[];
+  capacityAlerts: BarItem[];
   clientHealth: { columns: TableColumn[]; rows: TableRow[] };
-  margin: { columns: TableColumn[]; rows: TableRow[] };
+  marginRisk: { columns: TableColumn[]; rows: TableRow[] };
   keyPersonRisk: FeedItem[];
   milestones: MilestoneItem[];
 }
 
-/* ---------------- Products ---------------- */
+/* ---------------- Products / Accelerators ---------------- */
 export interface ProductsSection {
   tiles: SectionTiles;
   reuseStat: StatBlock;
@@ -120,10 +147,10 @@ export interface ProductsSection {
   adoptionNote: string;
   atRisk: { columns: TableColumn[]; rows: TableRow[] };
   investment: { columns: TableColumn[]; rows: TableRow[] };
-  products: { columns: TableColumn[]; rows: TableRow[] };
+  attentionProducts: { columns: TableColumn[]; rows: TableRow[] };
 }
 
-/* ---------------- Certification ---------------- */
+/* ---------------- Certification / Partner eligibility ---------------- */
 export interface CertificationSection {
   tiles: SectionTiles;
   tiers: TierCardData[];
@@ -131,10 +158,10 @@ export interface CertificationSection {
   compliance: { columns: TableColumn[]; rows: TableRow[] };
   spendStat: StatBlock;
   unlockedStat: StatBlock;
-  certifications: { columns: TableColumn[]; rows: TableRow[] };
+  tierThreats: FeedItem[];
 }
 
-/* ---------------- Event Planning ---------------- */
+/* ---------------- Events / Demand gen ROI ---------------- */
 export interface EventsSection {
   tiles: SectionTiles;
   budgetByCategory: BarItem[];
@@ -144,7 +171,7 @@ export interface EventsSection {
   followUpNote: string;
   pipelinePerEvent: { columns: TableColumn[]; rows: TableRow[] };
   mdf: { columns: TableColumn[]; rows: TableRow[] };
-  events: { columns: TableColumn[]; rows: TableRow[] };
+  attentionEvents: { columns: TableColumn[]; rows: TableRow[] };
 }
 
 export interface SectionMeta {
@@ -152,10 +179,12 @@ export interface SectionMeta {
   label: string;
   description: string;
   attentionBadge: number;
+  sources: DataSource[];
 }
 
 export interface DashboardData {
   sections: SectionMeta[];
+  brief: BriefSection;
   sales: SalesSection;
   deliveries: DeliveriesSection;
   products: ProductsSection;

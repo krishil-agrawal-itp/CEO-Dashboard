@@ -1,7 +1,16 @@
 import { SectionMeta } from "@/lib/types";
-import { SalesIcon, DeliveryIcon, ProductsIcon, CertificationIcon, CalendarIcon } from "./icons";
+import {
+  BriefIcon,
+  SalesIcon,
+  DeliveryIcon,
+  ProductsIcon,
+  CertificationIcon,
+  CalendarIcon,
+} from "./icons";
+import { SourceRow } from "./ui/SourceChip";
 
 const SECTION_ICON: Record<string, (props: { className?: string }) => React.ReactElement> = {
+  brief: BriefIcon,
   sales: SalesIcon,
   deliveries: DeliveryIcon,
   products: ProductsIcon,
@@ -20,18 +29,12 @@ export function Sidebar({
 }) {
   return (
     <aside
-      className="hidden h-full w-[260px] shrink-0 flex-col overflow-hidden rounded-[var(--r-xl)] border border-[var(--border-subtle)] bg-[var(--surface)] lg:flex"
+      className="hidden h-full w-[270px] shrink-0 flex-col overflow-hidden rounded-[var(--r-xl)] border border-[var(--border-subtle)] bg-[var(--surface)] lg:flex"
       style={{ boxShadow: "var(--shadow-md)" }}
     >
-      {/* Brand mark */}
-      <div className="relative overflow-hidden border-b border-[var(--border-subtle)] px-5 pb-5 pt-6">
-        <div
-          className="pointer-events-none absolute -right-8 -top-10 h-28 w-28 rounded-full"
-          style={{ background: "radial-gradient(circle, rgba(0,58,227,0.12), transparent 70%)" }}
-          aria-hidden
-        />
-        <div className="relative flex items-center gap-3">
-          {/* eslint-disable-next-line @next/next/no-img-element -- tiny static SVG mark */}
+      <div className="border-b border-[var(--border-subtle)] px-5 pb-5 pt-6">
+        <div className="flex items-center gap-3">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/brand/logo-mark-black.svg"
             alt=""
@@ -53,7 +56,7 @@ export function Sidebar({
 
       <nav className="no-scrollbar flex-1 overflow-y-auto px-3 py-5">
         <p className="mb-2.5 px-3 text-[11px] font-bold uppercase tracking-[0.12em] text-[var(--ink-muted)]">
-          Overview
+          Your desk
         </p>
         <div className="flex flex-col gap-1">
           {sections.map((section) => {
@@ -63,7 +66,7 @@ export function Sidebar({
               <button
                 key={section.id}
                 onClick={() => onSelect(section.id)}
-                className={`focus-ring group relative flex items-center gap-3 rounded-[var(--r-md)] px-3 py-3 text-[14.5px] font-bold transition-all duration-200 ${
+                className={`focus-ring group relative flex flex-col gap-1.5 rounded-[var(--r-md)] px-3 py-3 text-left transition-all duration-200 ${
                   isActive
                     ? "bg-[var(--brand)] text-white"
                     : "text-[var(--ink-secondary)] hover:bg-[var(--surface-sunken)] hover:text-[var(--ink-primary)]"
@@ -76,26 +79,37 @@ export function Sidebar({
                     aria-hidden
                   />
                 )}
-                <Icon
-                  className={`h-[18px] w-[18px] shrink-0 transition-colors ${
-                    isActive ? "text-white" : "text-[var(--ink-muted)] group-hover:text-[var(--brand)]"
-                  }`}
-                />
-                <span className="flex-1 text-left">{section.label}</span>
+                <span className="flex items-center gap-3">
+                  <Icon
+                    className={`h-[18px] w-[18px] shrink-0 ${
+                      isActive ? "text-white" : "text-[var(--ink-muted)] group-hover:text-[var(--brand)]"
+                    }`}
+                  />
+                  <span className="flex-1 text-[14.5px] font-bold">{section.label}</span>
+                  {section.attentionBadge > 0 && (
+                    <span
+                      className={`rounded-[var(--r-pill)] px-1.5 py-0.5 text-[10.5px] font-bold tabular-nums ${
+                        isActive ? "bg-white/20 text-white" : "bg-[var(--risk-soft)] text-[var(--risk)]"
+                      }`}
+                    >
+                      {section.attentionBadge}
+                    </span>
+                  )}
+                </span>
               </button>
             );
           })}
         </div>
       </nav>
 
-      {/* Live status footer */}
-      <div className="mx-3 mb-4 rounded-[var(--r-md)] border border-[var(--border-subtle)] bg-[var(--surface-sunken)] px-3.5 py-3">
+      <div className="mx-3 mb-4 space-y-2 rounded-[var(--r-md)] border border-[var(--border-subtle)] bg-[var(--surface-sunken)] px-3.5 py-3">
         <div className="flex items-center gap-2">
           <span className="live-dot h-2 w-2 rounded-full bg-[var(--brand)]" aria-hidden />
-          <span className="text-[12px] font-bold text-[var(--ink-primary)]">Systems live</span>
+          <span className="text-[12px] font-bold text-[var(--ink-primary)]">Feeds connected</span>
         </div>
-        <p className="mt-1 text-[11.5px] font-medium leading-snug text-[var(--ink-muted)]">
-          Data synced · Q3 FY26 snapshot
+        <SourceRow sources={["HubSpot", "Kantata", "Beacon"]} />
+        <p className="text-[11.5px] font-medium leading-snug text-[var(--ink-muted)]">
+          Q3 FY26 snapshot
         </p>
       </div>
     </aside>

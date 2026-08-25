@@ -11,25 +11,46 @@ export function EventsSection({ data }: { data: EventsSectionData }) {
       <Tile3 tiles={data.tiles} />
 
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
-        <Card title="Budget vs Actual" subtitle={`All 22 events, by category. Planned ${data.budgetPlanned} · spent to date ${data.budgetSpent}.`}>
+        <Card
+          title="Budget vs actual"
+          subtitle={`Revenue events only. Planned ${data.budgetPlanned} · spent ${data.budgetSpent}.`}
+          sources={["HubSpot"]}
+        >
           <SequentialBars items={data.budgetByCategory} />
         </Card>
-        <Card title="Post-Event Follow-Up Rate" subtitle="% of leads contacted within 7 days of the event.">
+        <Card
+          title="Follow-up leakage"
+          subtitle="% of leads contacted within 7 days — where event ROI quietly dies."
+          sources={["HubSpot"]}
+        >
           <StatBlockView {...data.followUpStat} sub={data.followUpNote} />
         </Card>
       </div>
 
-      <Card title="Pipeline Generated per Event" subtitle="Leads and pipeline value against spend. Past events are actuals; future events are projected.">
+      <Card
+        title="Pipeline generated per event"
+        subtitle="Spend against leads and pipeline. Past = actuals; future = projected."
+        sources={["HubSpot"]}
+      >
         <DataTable columns={data.pipelinePerEvent.columns} rows={data.pipelinePerEvent.rows} />
       </Card>
 
-      <Card title="Partner Co-Marketing / MDF" subtitle="Marketing development funds — easy to let expire unused.">
-        <DataTable columns={data.mdf.columns} rows={data.mdf.rows} />
-      </Card>
-
-      <Card title="Events" subtitle="Showing 7 of 22 — soonest first.">
-        <DataTable columns={data.events.columns} rows={data.events.rows} />
-      </Card>
+      <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+        <Card
+          title="Partner MDF"
+          subtitle="Money that expires unused — a CEO allocation call."
+          sources={["HubSpot"]}
+        >
+          <DataTable columns={data.mdf.columns} rows={data.mdf.rows} />
+        </Card>
+        <Card
+          title="Blocked revenue events"
+          subtitle="Internal offsights and galas removed. Only demand gen with a blocker."
+          sources={["HubSpot"]}
+        >
+          <DataTable columns={data.attentionEvents.columns} rows={data.attentionEvents.rows} />
+        </Card>
+      </div>
     </div>
   );
 }

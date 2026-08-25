@@ -4,14 +4,23 @@ import { useRef, useState } from "react";
 import { DashboardData } from "@/lib/types";
 import { Sidebar } from "./Sidebar";
 import { Topbar } from "./Topbar";
+import { BriefSection } from "./sections/BriefSection";
 import { SalesSection } from "./sections/SalesSection";
 import { DeliveriesSection } from "./sections/DeliveriesSection";
 import { ProductsSection } from "./sections/ProductsSection";
 import { CertificationSection } from "./sections/CertificationSection";
 import { EventsSection } from "./sections/EventsSection";
-import { SalesIcon, DeliveryIcon, ProductsIcon, CertificationIcon, CalendarIcon } from "./icons";
+import {
+  BriefIcon,
+  SalesIcon,
+  DeliveryIcon,
+  ProductsIcon,
+  CertificationIcon,
+  CalendarIcon,
+} from "./icons";
 
 const SECTION_ICON: Record<string, (props: { className?: string }) => React.ReactElement> = {
+  brief: BriefIcon,
   sales: SalesIcon,
   deliveries: DeliveryIcon,
   products: ProductsIcon,
@@ -23,12 +32,10 @@ export function DashboardShell({ data }: { data: DashboardData }) {
   const [active, setActive] = useState(data.sections[0].id);
   const activeMeta = data.sections.find((s) => s.id === active) ?? data.sections[0];
   const mainRef = useRef<HTMLElement>(null);
+  const decisionsWaiting = data.brief.decisions.length;
 
   function selectSection(id: string) {
     setActive(id);
-    // The scroll container persists across section switches (it's the same
-    // <main>, only its children change) — reset it, or a section shorter
-    // than the last one opens mid-scroll instead of at the top.
     mainRef.current?.scrollTo({ top: 0 });
   }
 
@@ -37,9 +44,13 @@ export function DashboardShell({ data }: { data: DashboardData }) {
       <Sidebar sections={data.sections} active={active} onSelect={selectSection} />
 
       <div className="flex h-full min-w-0 flex-1 flex-col overflow-hidden">
-        <Topbar title={activeMeta.label} description={activeMeta.description} />
+        <Topbar
+          title={activeMeta.label}
+          description={activeMeta.description}
+          sources={activeMeta.sources}
+          decisionsWaiting={decisionsWaiting}
+        />
 
-        {/* Mobile section switcher — sidebar is desktop-only */}
         <div className="no-scrollbar mb-3 flex gap-2 overflow-x-auto pb-0.5 lg:hidden">
           {data.sections.map((section) => {
             const isActive = section.id === active;
@@ -57,6 +68,15 @@ export function DashboardShell({ data }: { data: DashboardData }) {
               >
                 <Icon className="h-4 w-4" />
                 {section.label}
+                {section.attentionBadge > 0 && (
+                  <span
+                    className={`tabular-nums rounded-full px-1.5 text-[10px] ${
+                      isActive ? "bg-white/20" : "bg-[var(--risk-soft)] text-[var(--risk)]"
+                    }`}
+                  >
+                    {section.attentionBadge}
+                  </span>
+                )}
               </button>
             );
           })}
@@ -64,6 +84,7 @@ export function DashboardShell({ data }: { data: DashboardData }) {
 
         <main ref={mainRef} className="no-scrollbar min-h-0 flex-1 overflow-y-auto pb-4 pr-0.5">
           <div key={active} className="section-enter">
+            {active === "brief" && <BriefSection data={data.brief} />}
             {active === "sales" && <SalesSection data={data.sales} />}
             {active === "deliveries" && <DeliveriesSection data={data.deliveries} />}
             {active === "products" && <ProductsSection data={data.products} />}

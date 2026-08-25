@@ -10,28 +10,38 @@ export function ProductsSection({ data }: { data: ProductsSectionData }) {
       <Tile3 tiles={data.tiles} />
 
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
-        <Card title="Reuse Across the Business" subtitle="How much of delivery and sales leans on packaged IP.">
+        <Card
+          title="Reuse & pipeline leverage"
+          subtitle="How much of delivery and sales leans on packaged IP."
+          sources={["Beacon", "HubSpot"]}
+        >
           <div className="grid grid-cols-2 gap-3">
             <StatBlockView {...data.reuseStat} />
             <StatBlockView {...data.pipelineStat} />
           </div>
         </Card>
-        <Card title="Adoption Trend & Decay Signal" subtitle="Monthly active usage across the accelerator portfolio.">
-          <p className="text-[14px] font-medium leading-relaxed text-[var(--ink-secondary)]">{data.adoptionNote}</p>
+        <Card title="Decay signal" subtitle="Stated plainly — not left for you to read a chart." sources={["Beacon"]}>
+          <p className="text-[15px] font-medium leading-relaxed text-[var(--ink-secondary)]">
+            {data.adoptionNote}
+          </p>
         </Card>
       </div>
 
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
-        <Card title="At-Risk ARR" subtitle="Revenue that could disappear without action.">
+        <Card title="ARR that can disappear" subtitle="Revenue at risk without a CEO or product action." sources={["Beacon", "HubSpot"]}>
           <DataTable columns={data.atRisk.columns} rows={data.atRisk.rows} />
         </Card>
-        <Card title="Investment vs Return" subtitle="Build + maintenance cost against ARR generated.">
-          <DataTable columns={data.investment.columns} rows={data.investment.rows} />
+        <Card title="On your product desk" subtitle="Attention products only — healthy GA catalogue omitted." sources={["Beacon"]}>
+          <DataTable columns={data.attentionProducts.columns} rows={data.attentionProducts.rows} />
         </Card>
       </div>
 
-      <Card title="Products & Accelerators" subtitle="Showing 7 of 18.">
-        <DataTable columns={data.products.columns} rows={data.products.rows} />
+      <Card
+        title="Investment vs return"
+        subtitle="Build + maintenance against ARR. Bottom of the table is the portfolio question."
+        sources={["Beacon"]}
+      >
+        <DataTable columns={data.investment.columns} rows={data.investment.rows} />
       </Card>
     </div>
   );

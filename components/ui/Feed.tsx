@@ -1,5 +1,6 @@
 import { FeedItem } from "@/lib/types";
 import { AlertIcon, ClockIcon } from "../icons";
+import { SourceChip } from "./SourceChip";
 
 export function Feed({ items }: { items: FeedItem[] }) {
   return (
@@ -28,7 +29,10 @@ export function Feed({ items }: { items: FeedItem[] }) {
               <p className="text-[14.5px] font-semibold leading-snug text-[var(--ink-primary)]">
                 {item.text}
               </p>
-              <p className="mt-1 text-[12.5px] font-medium text-[var(--ink-muted)]">{item.meta}</p>
+              <div className="mt-1.5 flex flex-wrap items-center gap-2">
+                {item.source && <SourceChip source={item.source} />}
+                <p className="text-[12.5px] font-medium text-[var(--ink-muted)]">{item.meta}</p>
+              </div>
             </div>
             <button className="focus-ring shrink-0 rounded-[var(--r-pill)] border border-[var(--border)] bg-[var(--surface)] px-3.5 py-1.5 text-[12.5px] font-bold text-[var(--ink-secondary)] transition-all hover:border-[var(--brand)] hover:bg-[var(--brand)] hover:text-white hover:shadow-[var(--shadow-brand)]">
               {item.action}

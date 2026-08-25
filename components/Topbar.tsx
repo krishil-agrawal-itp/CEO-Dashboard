@@ -1,9 +1,21 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { BellIcon, SearchIcon } from "./icons";
+import { DataSource } from "@/lib/types";
+import { BellIcon } from "./icons";
+import { SourceRow } from "./ui/SourceChip";
 
-export function Topbar({ title, description }: { title: string; description: string }) {
+export function Topbar({
+  title,
+  description,
+  sources,
+  decisionsWaiting,
+}: {
+  title: string;
+  description: string;
+  sources: DataSource[];
+  decisionsWaiting: number;
+}) {
   const [now, setNow] = useState<string>("");
 
   useEffect(() => {
@@ -30,41 +42,41 @@ export function Topbar({ title, description }: { title: string; description: str
           <h1 className="truncate text-[28px] font-bold tracking-tight text-[var(--ink-primary)] lg:text-[32px]">
             {title}
           </h1>
-          <span className="hidden rounded-[var(--r-pill)] border border-[var(--border)] bg-[var(--surface)] px-2.5 py-1 text-[11.5px] font-bold uppercase tracking-[0.08em] text-[var(--ink-secondary)] sm:inline-flex">
-            This quarter
-          </span>
         </div>
         <p className="mt-1 max-w-2xl truncate text-[14px] font-medium text-[var(--ink-muted)] lg:text-[15px]">
           {description}
         </p>
+        <div className="mt-2.5">
+          <SourceRow sources={sources} />
+        </div>
       </div>
 
       <div className="flex shrink-0 items-center gap-2.5">
         {now && (
           <p className="hidden text-right text-[12.5px] font-semibold text-[var(--ink-muted)] xl:block">
-            <span className="block text-[11px] font-bold uppercase tracking-[0.1em] text-[var(--ink-muted)]">
-              Local time
-            </span>
+            <span className="block text-[11px] font-bold uppercase tracking-[0.1em]">Local time</span>
             {now}
           </p>
         )}
 
-        <button
-          type="button"
-          className="focus-ring hidden h-10 w-10 items-center justify-center rounded-[var(--r-md)] border border-[var(--border)] bg-[var(--surface)] text-[var(--ink-secondary)] transition-colors hover:border-[var(--brand)] hover:text-[var(--brand)] md:inline-flex"
-          aria-label="Search"
+        <div
+          className="hidden items-center gap-2 rounded-[var(--r-pill)] border border-[var(--border)] bg-[var(--surface)] px-3 py-2 md:flex"
+          style={{ boxShadow: "var(--shadow-xs)" }}
         >
-          <SearchIcon className="h-[18px] w-[18px]" />
-        </button>
+          <span className="text-[11px] font-bold uppercase tracking-[0.08em] text-[var(--ink-muted)]">
+            On you
+          </span>
+          <span className="tabular-nums text-[15px] font-bold text-[var(--risk)]">{decisionsWaiting}</span>
+        </div>
 
         <button
           type="button"
           className="focus-ring relative inline-flex h-10 w-10 items-center justify-center rounded-[var(--r-md)] border border-[var(--border)] bg-[var(--surface)] text-[var(--ink-secondary)] transition-colors hover:border-[var(--brand)] hover:text-[var(--brand)]"
-          aria-label="Notifications"
+          aria-label="Alerts"
         >
           <BellIcon className="h-[18px] w-[18px]" />
           <span
-            className="absolute right-2 top-2 h-2 w-2 rounded-full bg-[var(--brand)]"
+            className="absolute right-2 top-2 h-2 w-2 rounded-full bg-[var(--risk)]"
             style={{ boxShadow: "0 0 0 2px #fff" }}
             aria-hidden
           />
@@ -75,7 +87,7 @@ export function Topbar({ title, description }: { title: string; description: str
           style={{ boxShadow: "var(--shadow-xs)" }}
         >
           <span
-            className="flex h-7 w-7 items-center justify-center rounded-full text-[12px] font-bold text-white"
+            className="flex h-7 w-7 items-center justify-center rounded-full text-[11px] font-bold text-white"
             style={{ background: "linear-gradient(135deg, var(--brand), var(--deep-blue))" }}
           >
             CEO
