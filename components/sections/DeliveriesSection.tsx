@@ -19,7 +19,7 @@ export function DeliveriesSection({ data }: { data: DeliveriesSectionData }) {
         <DataTable columns={data.atRiskProjects.columns} rows={data.atRiskProjects.rows} />
       </Card>
 
-      <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+      <div className="panel-grid">
         <Card
           title="Silent projects"
           subtitle="Beacon detects no status / timesheet / client update past threshold. Kantata cannot see silence."
@@ -36,7 +36,7 @@ export function DeliveriesSection({ data }: { data: DeliveriesSectionData }) {
         </Card>
       </div>
 
-      <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+      <div className="panel-grid">
         <Card
           title="Capacity pressure"
           subtitle="Practice utilisation extremes — overallocated vs bench. Not a weekly heatmap."
@@ -53,7 +53,7 @@ export function DeliveriesSection({ data }: { data: DeliveriesSectionData }) {
         </Card>
       </div>
 
-      <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+      <div className="panel-grid">
         <Card
           title="Margin below target"
           subtitle="Only engagements under the 28% delivery target."

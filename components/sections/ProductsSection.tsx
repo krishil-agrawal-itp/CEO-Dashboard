@@ -9,7 +9,7 @@ export function ProductsSection({ data }: { data: ProductsSectionData }) {
     <div className="flex flex-col gap-4 lg:gap-5">
       <Tile3 tiles={data.tiles} />
 
-      <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+      <div className="panel-grid">
         <Card
           title="Reuse & pipeline leverage"
           subtitle="How much of delivery and sales leans on packaged IP."
@@ -27,7 +27,7 @@ export function ProductsSection({ data }: { data: ProductsSectionData }) {
         </Card>
       </div>
 
-      <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+      <div className="panel-grid">
         <Card title="ARR that can disappear" subtitle="Revenue at risk without a CEO or product action." sources={["Beacon", "HubSpot"]}>
           <DataTable columns={data.atRisk.columns} rows={data.atRisk.rows} />
         </Card>

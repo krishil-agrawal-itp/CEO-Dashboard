@@ -15,14 +15,15 @@ export function SequentialBars({ items }: { items: BarItem[] }) {
         const pct = Math.max(6, Math.round((item.value / max) * 100));
         const step = SEQUENTIAL_BLUE[Math.min(i, SEQUENTIAL_BLUE.length - 1)];
         return (
-          <div key={item.label} className="group flex items-center gap-3 text-[14px]">
-            <span className="w-[134px] shrink-0 truncate font-semibold text-[var(--ink-secondary)] group-hover:text-[var(--ink-primary)]">
+          <div key={item.label} className="group flex min-w-0 flex-col gap-1 text-[13px] sm:flex-row sm:items-center sm:gap-3 sm:text-[14px]">
+            <span className="shrink-0 font-semibold text-[var(--ink-secondary)] group-hover:text-[var(--ink-primary)] sm:w-[120px] sm:truncate xl:w-[134px]">
               {item.label}
             </span>
-            <span
-              className="h-[20px] flex-1 overflow-hidden rounded-[var(--r-sm)]"
-              style={{ background: "var(--surface-sunken)" }}
-            >
+            <span className="flex min-w-0 flex-1 items-center gap-2">
+              <span
+                className="h-[16px] min-w-0 flex-1 overflow-hidden rounded-[var(--r-sm)] sm:h-[20px]"
+                style={{ background: "var(--surface-sunken)" }}
+              >
               <span
                 className="bar-grow block h-full rounded-[var(--r-sm)] transition-[filter] duration-200 group-hover:brightness-110"
                 style={{
@@ -33,8 +34,9 @@ export function SequentialBars({ items }: { items: BarItem[] }) {
                 }}
               />
             </span>
-            <span className="w-[80px] shrink-0 text-right font-bold tabular-nums text-[var(--ink-primary)]">
+            <span className="w-[72px] shrink-0 text-right font-bold tabular-nums text-[var(--ink-primary)] sm:w-[80px]">
               {item.displayValue}
+            </span>
             </span>
           </div>
         );

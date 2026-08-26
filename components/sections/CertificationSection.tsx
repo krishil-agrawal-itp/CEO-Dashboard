@@ -16,14 +16,14 @@ export function CertificationSection({ data }: { data: CertificationSectionData 
         subtitle="Eligibility for co-sell funding, marketplace rank, and enterprise RFPs."
         sources={["Beacon"]}
       >
-        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-4">
           {data.tiers.map((t) => (
             <TierCard key={t.vendor} {...t} />
           ))}
         </div>
       </Card>
 
-      <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+      <div className="panel-grid">
         <Card
           title="Tier threats"
           subtitle="Cert expiries and gaps that can drop a partner tier — not the full cert inventory."
@@ -40,7 +40,7 @@ export function CertificationSection({ data }: { data: CertificationSectionData 
         </Card>
       </div>
 
-      <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+      <div className="panel-grid">
         <Card title="Audit & compliance gates" subtitle="Controls that block deals if they slip." sources={["Beacon"]}>
           <DataTable columns={data.compliance.columns} rows={data.compliance.rows} />
         </Card>

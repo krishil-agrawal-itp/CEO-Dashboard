@@ -10,7 +10,7 @@ export function EventsSection({ data }: { data: EventsSectionData }) {
     <div className="flex flex-col gap-4 lg:gap-5">
       <Tile3 tiles={data.tiles} />
 
-      <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+      <div className="panel-grid">
         <Card
           title="Budget vs actual"
           subtitle={`Revenue events only. Planned ${data.budgetPlanned} · spent ${data.budgetSpent}.`}
@@ -35,7 +35,7 @@ export function EventsSection({ data }: { data: EventsSectionData }) {
         <DataTable columns={data.pipelinePerEvent.columns} rows={data.pipelinePerEvent.rows} />
       </Card>
 
-      <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+      <div className="panel-grid">
         <Card
           title="Partner MDF"
           subtitle="Money that expires unused — a CEO allocation call."

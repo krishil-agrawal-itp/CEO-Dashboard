@@ -12,7 +12,7 @@ export function SalesSection({ data }: { data: SalesSectionData }) {
     <div className="flex flex-col gap-4 lg:gap-5">
       <Tile3 tiles={data.tiles} />
 
-      <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+      <div className="panel-grid">
         <Card
           title="Commit vs Target"
           subtitle="Your number for the quarter — Best Case is context, not the plan."
@@ -37,7 +37,7 @@ export function SalesSection({ data }: { data: SalesSectionData }) {
         </Card>
       </div>
 
-      <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+      <div className="panel-grid">
         <Card title="Open pipeline by stage" subtitle="Closed-won excluded — pure open risk." sources={["HubSpot"]}>
           <SequentialBars items={data.funnel} />
         </Card>
@@ -50,7 +50,7 @@ export function SalesSection({ data }: { data: SalesSectionData }) {
         </Card>
       </div>
 
-      <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+      <div className="panel-grid">
         <Card title="Revenue concentration" subtitle={data.concentrationSub} sources={["HubSpot"]}>
           <SequentialBars items={data.concentration} />
         </Card>
@@ -59,7 +59,7 @@ export function SalesSection({ data }: { data: SalesSectionData }) {
         </Card>
       </div>
 
-      <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+      <div className="panel-grid">
         <Card title="Win / Loss trend" subtitle="Deal count, last 6 months." sources={["HubSpot"]}>
           <StackedBar2 rows={data.winLoss} aLabel="Won" bLabel="Lost" />
         </Card>

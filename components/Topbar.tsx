@@ -37,24 +37,24 @@ export function Topbar({
   }, []);
 
   return (
-    <header className="glass-panel mb-4 flex shrink-0 items-center justify-between gap-4 rounded-[var(--r-xl)] border border-[var(--border-subtle)] px-5 py-4 lg:px-7">
-      <div className="min-w-0">
+    <header className="glass-panel mb-3 flex shrink-0 items-center justify-between gap-3 rounded-[var(--r-xl)] border border-[var(--border-subtle)] px-3 py-3 sm:px-5 sm:py-4 lg:px-6">
+      <div className="min-w-0 flex-1">
         <div className="flex flex-wrap items-center gap-2.5">
-          <h1 className="truncate text-[28px] font-bold tracking-tight text-[var(--ink-primary)] lg:text-[32px]">
+          <h1 className="truncate text-[20px] font-bold tracking-tight text-[var(--ink-primary)] sm:text-[24px] xl:text-[28px]">
             {title}
           </h1>
         </div>
-        <p className="mt-1 max-w-2xl truncate text-[14px] font-medium text-[var(--ink-muted)] lg:text-[15px]">
+        <p className="mt-1 hidden max-w-2xl truncate text-[13px] font-medium text-[var(--ink-muted)] sm:block lg:text-[15px]">
           {description}
         </p>
-        <div className="mt-2.5">
+        <div className="mt-2 hidden sm:block">
           <SourceRow sources={sources} />
         </div>
       </div>
 
-      <div className="flex shrink-0 items-center gap-2.5">
+      <div className="flex shrink-0 items-center gap-2 sm:gap-2.5">
         {now && (
-          <p className="hidden text-right text-[12.5px] font-semibold text-[var(--ink-muted)] xl:block">
+          <p className="hidden text-right text-[12.5px] font-semibold text-[var(--ink-muted)] md:block">
             <span className="block text-[11px] font-bold uppercase tracking-[0.1em]">Dallas</span>
             {now}
           </p>
@@ -93,7 +93,7 @@ export function Topbar({
           >
             CEO
           </span>
-          <span className="text-[13px] font-bold text-[var(--ink-primary)]">Executive</span>
+          <span className="hidden text-[13px] font-bold text-[var(--ink-primary)] 2xl:inline">Executive</span>
         </div>
       </div>
     </header>

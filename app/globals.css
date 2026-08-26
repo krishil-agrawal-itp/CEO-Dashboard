@@ -123,6 +123,18 @@ body {
 
 .page-atmosphere {
   background: var(--page);
+  min-width: 0;
+}
+
+.panel-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+@media (min-width: 1280px) {
+  .panel-grid {
+    grid-template-columns: 1fr 1fr;
+  }
 }
 
 @keyframes fadeInUp {

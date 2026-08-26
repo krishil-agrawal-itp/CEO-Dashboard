@@ -29,7 +29,7 @@ export function Sidebar({
 }) {
   return (
     <aside
-      className="hidden h-full w-[270px] shrink-0 flex-col overflow-hidden rounded-[var(--r-xl)] border border-[var(--border-subtle)] bg-[var(--surface)] lg:flex"
+      className="hidden h-full w-[212px] shrink-0 flex-col overflow-hidden rounded-[var(--r-xl)] border border-[var(--border-subtle)] bg-[var(--surface)] xl:w-[240px] 2xl:w-[256px] lg:flex"
       style={{ boxShadow: "var(--shadow-md)" }}
     >
       <div className="border-b border-[var(--border-subtle)] px-5 pb-5 pt-6">

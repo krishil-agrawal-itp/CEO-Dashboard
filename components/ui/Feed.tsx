@@ -10,7 +10,7 @@ export function Feed({ items }: { items: FeedItem[] }) {
         return (
           <div
             key={item.id}
-            className="cell-fade group flex items-start gap-3 rounded-[var(--r-md)] px-2 py-3.5 transition-colors hover:bg-[var(--surface-sunken)]"
+            className="cell-fade group flex flex-col gap-2 rounded-[var(--r-md)] px-1.5 py-3 sm:flex-row sm:items-start sm:gap-3 sm:px-2 sm:py-3.5"
             style={{
               animationDelay: `${i * 70}ms`,
               ...(i === 0 ? {} : { borderTop: "1px solid var(--border-subtle)" }),
@@ -34,7 +34,7 @@ export function Feed({ items }: { items: FeedItem[] }) {
                 <p className="text-[12.5px] font-medium text-[var(--ink-muted)]">{item.meta}</p>
               </div>
             </div>
-            <button className="focus-ring shrink-0 rounded-[var(--r-pill)] border border-[var(--border)] bg-[var(--surface)] px-3.5 py-1.5 text-[12.5px] font-bold text-[var(--ink-secondary)] transition-all hover:border-[var(--brand)] hover:bg-[var(--brand)] hover:text-white hover:shadow-[var(--shadow-brand)]">
+            <button className="focus-ring self-start rounded-[var(--r-pill)] border border-[var(--border)] bg-[var(--surface)] px-3 py-1.5 text-[12.5px] font-bold text-[var(--ink-secondary)] transition-all hover:border-[var(--brand)] hover:bg-[var(--brand)] hover:text-white sm:shrink-0">
               {item.action}
             </button>
           </div>

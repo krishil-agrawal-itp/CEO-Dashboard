@@ -3,7 +3,7 @@ import { StatusPill } from "./StatusPill";
 
 export function DataTable({ columns, rows }: { columns: TableColumn[]; rows: TableRow[] }) {
   return (
-    <div className="no-scrollbar overflow-x-auto rounded-[var(--r-md)]">
+    <div className="no-scrollbar -mx-1 overflow-x-auto rounded-[var(--r-md)]">
       <table className="w-full min-w-[520px] border-collapse text-[14px]">
         <thead>
           <tr style={{ background: "var(--surface-sunken)" }}>

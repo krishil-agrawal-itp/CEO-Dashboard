@@ -25,13 +25,13 @@ export function BriefSection({ data }: { data: BriefSectionData }) {
         </div>
       </Card>
 
-      <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
+      <div className="grid grid-cols-2 gap-3 xl:grid-cols-4">
         {data.pulse.map((stat) => (
           <StatBlockView key={stat.label} {...stat} />
         ))}
       </div>
 
-      <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+      <div className="panel-grid">
         <Card
           title="Waiting on you"
           subtitle="Approvals and calls only the CEO can make. Clear these first."

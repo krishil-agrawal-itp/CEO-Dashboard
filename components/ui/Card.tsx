@@ -19,7 +19,7 @@ export function Card({
 }) {
   return (
     <div
-      className={`hover-lift group/card rounded-[var(--r-lg)] bg-[var(--surface)] p-5 lg:p-6 ${className}`}
+      className={`hover-lift group/card min-w-0 rounded-[var(--r-lg)] bg-[var(--surface)] p-4 sm:p-5 ${className}`}
       style={{ border: "1px solid var(--border-subtle)", boxShadow: "var(--shadow-sm)" }}
     >
       {(title || tag || sources) && (

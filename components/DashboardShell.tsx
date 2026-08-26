@@ -40,7 +40,7 @@ export function DashboardShell({ data }: { data: DashboardData }) {
   }
 
   return (
-    <div className="page-atmosphere flex h-screen w-screen gap-4 overflow-hidden p-3 sm:p-4 lg:p-5">
+    <div className="page-atmosphere flex h-dvh w-full max-w-[100vw] gap-3 overflow-hidden p-2 sm:p-3 xl:gap-4 xl:p-4">
       <Sidebar sections={data.sections} active={active} onSelect={selectSection} />
 
       <div className="flex h-full min-w-0 flex-1 flex-col overflow-hidden">
@@ -51,7 +51,7 @@ export function DashboardShell({ data }: { data: DashboardData }) {
           decisionsWaiting={decisionsWaiting}
         />
 
-        <div className="no-scrollbar mb-3 flex gap-2 overflow-x-auto pb-0.5 lg:hidden">
+        <div className="no-scrollbar mb-2 flex gap-2 overflow-x-auto pb-0.5 lg:hidden">
           {data.sections.map((section) => {
             const isActive = section.id === active;
             const Icon = SECTION_ICON[section.id] ?? SalesIcon;
@@ -82,7 +82,7 @@ export function DashboardShell({ data }: { data: DashboardData }) {
           })}
         </div>
 
-        <main ref={mainRef} className="no-scrollbar min-h-0 flex-1 overflow-y-auto pb-4 pr-0.5">
+        <main ref={mainRef} className="no-scrollbar min-h-0 min-w-0 flex-1 overflow-x-hidden overflow-y-auto pb-4">
           <div key={active} className="section-enter">
             {active === "brief" && <BriefSection data={data.brief} />}
             {active === "sales" && <SalesSection data={data.sales} />}
