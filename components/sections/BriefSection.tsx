@@ -3,22 +3,26 @@ import { Card } from "../ui/Card";
 import { Feed } from "../ui/Feed";
 import { StatBlockView } from "../ui/StatBlockView";
 import { SourceChip } from "../ui/SourceChip";
+import { SectionFrame } from "../controls/SectionFrame";
 
 export function BriefSection({ data }: { data: BriefSectionData }) {
   return (
-    <div className="flex flex-col gap-4 lg:gap-5">
-      <Card className="!p-6 lg:!p-7">
+    <SectionFrame methodology="Brief is generated from overnight deltas across HubSpot, Kantata, and Beacon. Decisions are items with a CEO-only approval flag or escalation owner = Executive. Pulse metrics inherit the global time range and risk lens.">
+      <Card className="!p-5 sm:!p-6">
         <div>
           <p className="text-[11.5px] font-bold uppercase tracking-[0.14em] text-[var(--brand)]">
             Morning brief · {data.generatedAt}
           </p>
-          <h2 className="mt-2 max-w-4xl text-[22px] font-bold leading-snug tracking-tight text-[var(--ink-primary)] lg:text-[26px]">
+          <h2 className="mt-2 max-w-4xl text-[20px] font-bold leading-snug tracking-tight text-[var(--ink-primary)] sm:text-[22px] xl:text-[24px]">
             {data.headline}
           </h2>
         </div>
         <div className="mt-5 space-y-3">
           {data.paragraphs.map((p) => (
-            <p key={p.slice(0, 24)} className="max-w-4xl text-[15px] font-medium leading-relaxed text-[var(--ink-secondary)]">
+            <p
+              key={p.slice(0, 24)}
+              className="max-w-4xl text-[14px] font-medium leading-relaxed text-[var(--ink-secondary)] sm:text-[15px]"
+            >
               {p}
             </p>
           ))}
@@ -37,6 +41,7 @@ export function BriefSection({ data }: { data: BriefSectionData }) {
           subtitle="Approvals and calls only the CEO can make. Clear these first."
           sources={["HubSpot", "Kantata"]}
           tag={`${data.decisions.length}`}
+          definition="Items with approval owner = CEO, or escalations that block ≥$5M revenue / delivery."
         >
           <Feed items={data.decisions} />
         </Card>
@@ -44,12 +49,17 @@ export function BriefSection({ data }: { data: BriefSectionData }) {
           title="What changed overnight"
           subtitle="Cross-system delta since yesterday's brief."
           sources={["HubSpot", "Kantata", "Beacon"]}
+          definition="Material changes since prior brief: stage moves, silence breaches, closed-won, burn threshold crossings."
         >
           <Feed items={data.overnight} />
         </Card>
       </div>
 
-      <Card title="System integrity" subtitle="Freshness of the three feeds this desk depends on.">
+      <Card
+        title="System integrity"
+        subtitle="Freshness of the three feeds this desk depends on."
+        definition="Live ≤30m lag. Delayed = 30m–4h. Offline = connector error or >4h stale."
+      >
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
           {data.systems.map((sys) => {
             const tone =
@@ -82,6 +92,6 @@ export function BriefSection({ data }: { data: BriefSectionData }) {
           })}
         </div>
       </Card>
-    </div>
+    </SectionFrame>
   );
 }
