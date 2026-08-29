@@ -81,6 +81,35 @@ export interface TierCardData {
   status: StatusPillData;
 }
 
+/** Partner program path: current → next tier with cert + evidence requirements. */
+export interface PartnerTierPath {
+  vendor: string;
+  currentTier: string;
+  nextTier: string;
+  certsHave: number;
+  certsNeeded: number;
+  caseStudiesHave: number;
+  caseStudiesNeeded: number;
+  userStoriesHave: number;
+  userStoriesNeeded: number;
+  howToIncrease: string;
+  status: StatusPillData;
+}
+
+/** Company-run certification accelerator (e.g. Anthropic Claude Architect push). */
+export interface CertAccelerator {
+  id: string;
+  name: string;
+  vendor: string;
+  target: number;
+  certified: number;
+  enrolled: number;
+  spend: string;
+  status: StatusPillData;
+  window: string;
+  note: string;
+}
+
 export interface StatBlock {
   label: string;
   value: string;
@@ -154,10 +183,20 @@ export interface ProductsSection {
 export interface CertificationSection {
   tiles: SectionTiles;
   tiers: TierCardData[];
+  /** Current tier, next tier, certs + case studies + user stories required to climb. */
+  partnerPaths: PartnerTierPath[];
+  /** Active / recent company certification accelerators. */
+  accelerators: CertAccelerator[];
+  /** Employee coverage against required certs (certified vs not). */
+  employeeCoverage: { columns: TableColumn[]; rows: TableRow[] };
+  /** Spend by accelerator and by certification family. */
+  spendByAccelerator: { columns: TableColumn[]; rows: TableRow[] };
+  spendByCertification: { columns: TableColumn[]; rows: TableRow[] };
   benchReadiness: { columns: TableColumn[]; rows: TableRow[] };
   compliance: { columns: TableColumn[]; rows: TableRow[] };
   spendStat: StatBlock;
   unlockedStat: StatBlock;
+  acceleratorSpendStat: StatBlock;
   tierThreats: FeedItem[];
 }
 

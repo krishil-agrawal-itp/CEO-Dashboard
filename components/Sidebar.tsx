@@ -45,7 +45,7 @@ export function Sidebar({
           />
           <div className="min-w-0">
             <p className="text-[20px] font-bold leading-none tracking-tight text-[var(--ink-primary)]">
-              Intuitive
+              CEO
             </p>
             <p className="mt-1.5 text-[11px] font-bold uppercase tracking-[0.14em] text-[var(--ink-muted)]">
               Command Center
